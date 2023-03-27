@@ -9,11 +9,17 @@ const Card = () => {
         .then( data => setCardData(data))
      },[])
     return (
-        <div>
+        <div className=' lg:grid grid-cols-5'  >
+            <div className='col-span-4 gap-8 mx-[8%]  mt-12 lg:grid grid-cols-3'>
             {
                 cardData.map( singleCard => <SingleCard data={singleCard} ></SingleCard>)
             }
+            </div>
+            <div>
+                <h1>Summery</h1>
+            </div>
         </div>
+        
     );
 };
 
