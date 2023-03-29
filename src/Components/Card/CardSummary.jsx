@@ -1,0 +1,27 @@
+import React from 'react';
+
+const CardSummary = ({card}) => {
+    let totalSum=0;
+    let totalProducts=0;
+    let shippingCharge=0;
+    for(const singleOrderDetails of card){
+       console.log(singleOrderDetails);
+        totalSum=totalSum+singleOrderDetails.price;
+        totalProducts=totalProducts+singleOrderDetails.quantity;
+        shippingCharge=shippingCharge+singleOrderDetails.shipping;
+    }
+    let tax=totalSum*7/100;
+    let grandTotal=totalSum+shippingCharge+tax;   
+    return (
+        <div>
+            <h1>Order Summay</h1>
+                <h1>Selected Items:{totalProducts}</h1>
+                <h1>Total Price:{totalSum}</h1>
+                <h1>Total Shipping Charge:{shippingCharge}</h1>
+                <h1>Tax:{tax}</h1>
+                <h1>Grand Total:{grandTotal}</h1>
+        </div>
+    );
+};
+
+export default CardSummary;
