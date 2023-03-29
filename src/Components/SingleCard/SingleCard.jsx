@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 const SingleCard = (props) => {
-    console.log(props.data);
+    // console.log(props.data);
     const {img,name,price,seller,ratings}=props.data;
     return (
             <div className=' rounded-lg lg:h-full border-2' >
