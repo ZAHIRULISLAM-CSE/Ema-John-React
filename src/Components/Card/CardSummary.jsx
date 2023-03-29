@@ -5,8 +5,8 @@ const CardSummary = ({card}) => {
     let totalProducts=0;
     let shippingCharge=0;
     for(const singleOrderDetails of card){
-       console.log(singleOrderDetails);
-        totalSum=totalSum+singleOrderDetails.price;
+       singleOrderDetails.quantity=singleOrderDetails.quantity ||1;
+        totalSum=totalSum+singleOrderDetails.price*singleOrderDetails.quantity;
         totalProducts=totalProducts+singleOrderDetails.quantity;
         shippingCharge=shippingCharge+singleOrderDetails.shipping;
     }
