@@ -6,19 +6,34 @@ import CardSummary from './CardSummary';
 const Card = () => {
      const [cardData,setCardData] = useState([]);
      const [orderDetails,setOrderDetails]=useState([]);
-
-    const summeryDetails=(orderData)=>{
-        
-        setOrderDetails([...orderDetails,orderData]);
-        AddToLocal(orderData.id);
-
+     const allCartFromLocal=[];
+        const summeryDetails=(orderData)=>{ 
+            let newCart = [];
+            const exists = orderDetails.find(pd => pd.id === orderData.id);
+            if (!exists) {
+                orderData.quantity = 1;
+                newCart = [...orderDetails, orderData]
+            }
+            else {
+                exists.quantity = exists.quantity + 1;
+                const remaining = orderDetails.filter(pd => pd.id !== orderData.id);
+                newCart = [...remaining, exists];
+            }
+            setOrderDetails(newCart);
+            AddToLocal(orderData.id)
     }
+
+    //handleDeletebUTTON
+
+
+
+    
+    // console.log(orderDetails);
     useEffect(()=>{
         fetch("products.json")
         .then( res => res.json())
         .then( data => setCardData(data))
      },[])
-
 
     useEffect(()=>{
         const savedCart=JSON.parse(localStorage.getItem("shopping-cart"));
@@ -32,13 +47,10 @@ const Card = () => {
                 savedProduct.quantity=quantity;
                 storeDataInArray.push(savedProduct);
            }
-
            setOrderDetails(storeDataInArray);
         }
         
     },[cardData])
-
-    
 
     return (
         <div className=' lg:grid grid-cols-5'  >

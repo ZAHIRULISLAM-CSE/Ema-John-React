@@ -7,6 +7,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Header from './Components/Header/Header';
+import Order from './Components/orders/Order';
+import Loader from './Components/loaderFunction/Loader';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         element:<App></App>
+      },
+      {
+        path: "/order",
+        element:<Order></Order>,
+        loader:Loader
       }
     ]
   },
