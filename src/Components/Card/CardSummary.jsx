@@ -13,8 +13,8 @@ const CardSummary = ({card}) => {
     let tax=totalSum*7/100;
     let grandTotal=totalSum+shippingCharge+tax;   
     return (
-        <div>
-            <h1>Order Summay</h1>
+        <div className='sticky bg-orange-500  p-4 top-0' >
+            <h1>Order Summary</h1>
                 <h1>Selected Items:{totalProducts}</h1>
                 <h1>Total Price:{totalSum}</h1>
                 <h1>Total Shipping Charge:{shippingCharge}</h1>

@@ -6,7 +6,6 @@ import CardSummary from './CardSummary';
 const Card = () => {
      const [cardData,setCardData] = useState([]);
      const [orderDetails,setOrderDetails]=useState([]);
-     const allCartFromLocal=[];
 
     const summeryDetails=(orderData)=>{
         
