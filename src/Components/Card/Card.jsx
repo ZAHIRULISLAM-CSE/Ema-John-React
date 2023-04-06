@@ -6,7 +6,6 @@ import CardSummary from './CardSummary';
 const Card = () => {
      const [cardData,setCardData] = useState([]);
      const [orderDetails,setOrderDetails]=useState([]);
-     const allCartFromLocal=[];
         const summeryDetails=(orderData)=>{ 
             let newCart = [];
             const exists = orderDetails.find(pd => pd.id === orderData.id);
@@ -23,10 +22,11 @@ const Card = () => {
             AddToLocal(orderData.id)
     }
 
-    //handleDeletebUTTON
-    const handleDeleteButton=()=>{
-        console.log("ok")
-    }
+    const clearCart=()=>{
+        localStorage.removeItem('shopping-cart');
+        setCardData([]); 
+        setOrderDetails([])
+     }
 
 
 
@@ -62,10 +62,9 @@ const Card = () => {
             }
             </div>
             <div>
-                <CardSummary  delete={handleDeleteButton} card={orderDetails} ></CardSummary> 
+                <CardSummary  delete={clearCart} card={orderDetails} ><p>Review Order</p></CardSummary> 
             </div>
-        </div>
-        
+        </div>  
     );
 };
 

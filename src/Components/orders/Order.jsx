@@ -8,6 +8,23 @@ const Order = () => {
   const cardData = useLoaderData();
   const [cart, setCart] = useState([]);
 
+
+  const deleteSingleProduct = (id) => {
+    const remainDataInArray = cart.filter((p) => p.id != id);
+    setCart(remainDataInArray);
+    const savedCart = JSON.parse(localStorage.getItem("shopping-cart"));
+    if (id in savedCart) {
+      delete savedCart[id];
+      localStorage.setItem('shopping-cart', JSON.stringify(savedCart));
+  }
+};
+
+
+const clearCart=()=>{
+   localStorage.removeItem('shopping-cart');
+   setCart([]); 
+}
+
   useEffect(() => {
     // //get selected order from local storage
     const savedCart = JSON.parse(localStorage.getItem("shopping-cart"));
@@ -25,20 +42,12 @@ const Order = () => {
     setCart(storeDataInArray);
   }, []);
 
-  const deleteSingleProduct = (id) => {
-      const remainDataInArray = cart.filter((p) => p.id != id);
-      setCart(remainDataInArray);
-      const savedCart = JSON.parse(localStorage.getItem("shopping-cart"));
-      if (id in savedCart) {
-        delete savedCart[id];
-        localStorage.setItem('shopping-cart', JSON.stringify(savedCart));
-    }
-  };
+ 
 
   return (
     <div className="flex  w-4/5 mx-auto flex-row-reverse">
       <div className=" mt-6 p-5 rounded-sm w-1/3">
-        <CardSummary card={cart}></CardSummary>
+        <CardSummary delete={clearCart}  card={cart}><p>Proceed Checkout</p></CardSummary>
       </div>
       <div className="flex-1  w-4/5 mx-auto">
         {cart.map((singleElement) => (
