@@ -24,10 +24,12 @@ const Card = () => {
     }
 
     //handleDeletebUTTON
+    const handleDeleteButton=()=>{
+        console.log("ok")
+    }
 
 
 
-    
     // console.log(orderDetails);
     useEffect(()=>{
         fetch("products.json")
@@ -60,7 +62,7 @@ const Card = () => {
             }
             </div>
             <div>
-                <CardSummary card={orderDetails} ></CardSummary>
+                <CardSummary  delete={handleDeleteButton} card={orderDetails} ></CardSummary> 
             </div>
         </div>
         

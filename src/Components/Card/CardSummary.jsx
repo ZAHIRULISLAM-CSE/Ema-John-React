@@ -20,6 +20,7 @@ const CardSummary = ({card}) => {
                 <h1>Total Shipping Charge:{shippingCharge}</h1>
                 <h1>Tax:{tax}</h1>
                 <h1>Grand Total:{grandTotal}</h1>
+                <button onClick={clearCart} className='bg-slate-700 mt-2 p-2 rounded-md' >Clear Cart</button>
         </div>
     );
 };
