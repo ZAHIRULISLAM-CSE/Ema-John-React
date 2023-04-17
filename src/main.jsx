@@ -10,6 +10,8 @@ import Header from './Components/Header/Header';
 import Order from './Components/orders/Order';
 import Loader from './Components/loaderFunction/Loader';
 import SignUp from './Components/config/UserManagement/SignUp';
+import AuthProvider from './Components/ContextAuth/AuthProvider';
+import Login from './Components/config/UserManagement/Login';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element:<SignUp></SignUp>,
+      },
+      {
+        path: "/login",
+        element:<Login></Login>,
       }
     ]
   },
@@ -35,6 +41,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-        <RouterProvider router={router} />
+        <AuthProvider>
+            <RouterProvider router={router} />
+        </AuthProvider>
   </React.StrictMode>,
 )
