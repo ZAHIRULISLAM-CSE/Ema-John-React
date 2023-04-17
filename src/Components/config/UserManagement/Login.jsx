@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../ContextAuth/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const {login}=useContext(AuthContext);
+    const location=useLocation();
+    const navigate=useNavigate();
+    const state =location.state || "/";
+    console.log(state);
 
-    const handleLogin=()=>{
+
+    const handleLogin=(event)=>{
+        event.preventDefault();
+        // console.log(event.target.email.value);
+        const email=event.target.email.value;
+        const password=event.target.password.value;
+        login(email,password)
+        .then((result) => { 
+            const user = result.user;
+            console.log(user);
+            navigate(state);
+          })
+          .catch((error) => {
+            const errorMessage = error.message;
+            console.log(errorMessage);
+          });
 
     }
+
 
 
 
@@ -12,7 +35,7 @@ const Login = () => {
   return (
     <div className="flex  justify-center">
       <div className="border rounded-lg mt-16 p-8">
-        <h1 className="text-3xl text-center mb-5">SignUp</h1>
+        <h1 className="text-3xl text-center mb-5">Login</h1>
         <form onSubmit={handleLogin} action="">
           <div className="mb-3">
             <label className="block mb-1" htmlFor="">
@@ -40,7 +63,7 @@ const Login = () => {
             className="md:w-[300px] bg-orange-600 p-2 rounded-lg lg:w-[400px]"
             type="submit"
           >
-            SignUp
+            Login
           </button>
         </form>
       </div>

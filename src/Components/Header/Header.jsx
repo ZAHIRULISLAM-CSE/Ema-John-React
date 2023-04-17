@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../../images/Logo.svg";
 import { Link, Outlet } from "react-router-dom";
+import { AuthContext } from "../ContextAuth/AuthProvider";
 
 const Header = () => {
+    const {user,logOut}=useContext(AuthContext);
+
+  const handleSignOut=()=>{
+    logOut()
+  }
+
+
+
   return (
     <div>
       <div className="bg-black">
@@ -16,6 +25,9 @@ const Header = () => {
               <Link to="/order" >Order Review</Link>
               <Link to="/signup" >SignUp</Link>
               <Link to="/login" >Login</Link>
+              {
+                user?<span>{user.email} <span className="bg-red-300 p-2 rounded-lg  ml-2"><button onClick={handleSignOut} >SignOut</button></span>  </span> :""
+              }
             </ul>
           </div>
         </div>
