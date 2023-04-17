@@ -17,7 +17,7 @@ const SingleCard = (props) => {
                 </div>
                  <div className='flex h-[50px] justify-center bg-orange-500  items-center'>
                  <hr />
-                    <p onClick={()=>props.summery(props.data)} className='' >Add To Cart <FontAwesomeIcon icon={faCartShopping} /></p>
+                    <p onClick={()=>props.summery(props.data)} className='cursor-pointer' >Add To Cart <FontAwesomeIcon icon={faCartShopping} /></p>
                     {/* {faCartShopping} */}
                 </div>
             </div>

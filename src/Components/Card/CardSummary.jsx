@@ -24,9 +24,8 @@ const CardSummary = (props) => {
                 <h1>Total Shipping Charge:{shippingCharge}</h1>
                 <h1>Tax:{tax}</h1>
                 <h1>Grand Total:{grandTotal}</h1>
-                <button onClick={props.delete} className='bg-slate-700 mt-2 p-2 rounded-md' >Clear Cart</button>
-                {props.children}
-
+                <button onClick={props.delete} className='bg-gray-300 mt-2 p-2 rounded-md block' >Clear Cart</button>
+                <button className='bg-gray-300 mt-2 p-2 rounded-md' >{props.children}</button>
         </div>
     );
 };

@@ -24,11 +24,9 @@ const Card = () => {
 
     const clearCart=()=>{
         localStorage.removeItem('shopping-cart');
-        setCardData([]); 
+        // setCardData([]); 
         setOrderDetails([])
      }
-
-
 
     // console.log(orderDetails);
     useEffect(()=>{

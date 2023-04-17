@@ -9,6 +9,7 @@ import {
 import Header from './Components/Header/Header';
 import Order from './Components/orders/Order';
 import Loader from './Components/loaderFunction/Loader';
+import SignUp from './Components/config/UserManagement/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: "/order",
         element:<Order></Order>,
         loader:Loader
+      },
+      {
+        path: "/signup",
+        element:<SignUp></SignUp>,
       }
     ]
   },
