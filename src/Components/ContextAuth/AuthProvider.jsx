@@ -12,14 +12,17 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 
     const [user,setUser]=useState({});
+    const [loading,setLoading]=useState(true);
 
   const auth = getAuth(app);
   //signup with email and password
   const signUp = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   //handle login
   const login = (email, passWord) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, passWord);
   };
 
@@ -27,6 +30,7 @@ const AuthProvider = ({ children }) => {
   useEffect(()=>{
     const unsubscribe=onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
+        setLoading(false);
     });
         return ()=>unsubscribe();
   },[])
@@ -38,7 +42,7 @@ const AuthProvider = ({ children }) => {
 
 
   const shareValue = {
-    signUp,login,user,logOut,
+    signUp,login,user,logOut,loading
   };
 
   return (

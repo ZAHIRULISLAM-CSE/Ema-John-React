@@ -7,6 +7,7 @@ const Login = () => {
     const location=useLocation();
     const navigate=useNavigate();
     const state =location.state || "/";
+    console.log(location)
     console.log(state);
 
 
@@ -19,7 +20,7 @@ const Login = () => {
         .then((result) => { 
             const user = result.user;
             console.log(user);
-            navigate(state);
+            navigate(state,{replace:true});
           })
           .catch((error) => {
             const errorMessage = error.message;
