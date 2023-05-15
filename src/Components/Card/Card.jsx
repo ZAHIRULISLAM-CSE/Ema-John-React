@@ -6,6 +6,9 @@ import CardSummary from "./CardSummary";
 const Card = () => {
   const [cardData, setCardData] = useState([]);
   const [orderDetails, setOrderDetails] = useState([]);
+  const [totalCard, setTotalCard] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const summeryDetails = (orderData) => {
     let newCart = [];
     const exists = orderDetails.find((pd) => pd._id === orderData._id);
@@ -23,16 +26,39 @@ const Card = () => {
 
   const clearCart = () => {
     localStorage.removeItem("shopping-cart");
-    // setCardData([]);
     setOrderDetails([]);
   };
 
-  // console.log(orderDetails);
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => setCardData(data));
   }, []);
+
+  //pagination works start here
+
+  useEffect(() => {
+    fetch("http://localhost:5000/total")
+      .then((res) => res.json())
+      .then((data) => setTotalCard(data.result));
+  }, []);
+
+  const totalPages = Math.ceil(totalCard / itemsPerPage);
+
+  //create page number dynamically
+  const pageNumbers = [...Array(totalPages).keys()];
+  const itemsPerPageOptions = [5, 10, 15, 20];
+
+  const handleItemsPerPageChange = (event) => {
+    const newItemsPerPage = parseInt(event.target.value);
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(0);
+  };
+
+
+
+
+
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("shopping-cart"));
@@ -51,16 +77,45 @@ const Card = () => {
   }, [cardData]);
 
   return (
-    <div className=" lg:grid grid-cols-5">
-      <div className="col-span-4 gap-8 mx-[8%]  mt-12 lg:grid grid-cols-3">
-        {cardData.map((singleCard) => (
-          <SingleCard summery={summeryDetails} data={singleCard}></SingleCard>
+    <div>
+      <div className=" lg:grid grid-cols-5">
+        <div className="col-span-4 gap-8 mx-[8%]  mt-12 lg:grid grid-cols-3">
+          {cardData.map((singleCard) => (
+            <SingleCard summery={summeryDetails} data={singleCard}></SingleCard>
+          ))}
+        </div>
+        <div>
+          <CardSummary delete={clearCart} card={orderDetails}>
+            <p>Review Order</p>
+          </CardSummary>
+        </div>
+      </div>
+      {/* Pagination Work */}
+      <div className="text-center">
+        <p>{currentPage}</p>
+        {pageNumbers.map((number) => (
+          <button
+            onClick={() => setCurrentPage(number)}
+            className="px-4 ml-[4px]  text-2xl rounded-xl bg-gray-400"
+            key={number}
+          >
+            {number}
+          </button>
         ))}
       </div>
-      <div>
-        <CardSummary delete={clearCart} card={orderDetails}>
-          <p>Review Order</p>
-        </CardSummary>
+      <div className="text-center mt-4">
+        <label htmlFor="itemsPerPage">Items Per Page:</label>
+        <select
+          id="itemsPerPage"
+          value={itemsPerPage}
+          onChange={handleItemsPerPageChange}
+        >
+          {itemsPerPageOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
