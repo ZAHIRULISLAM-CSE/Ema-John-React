@@ -50,11 +50,11 @@ const SignUp = () => {
           </div>
           <div className="mb-6">
             <label className="block  mb-1" htmlFor="">
-              Confirm Password
+              Confirm Your Password
             </label>
             <input className="border  h-[40px] rounded-md md:w-[300px] lg:w-[400px]" type="text" name="conpassword" id="" />
           </div>
-          <button className="md:w-[300px] bg-orange-600 p-2 rounded-lg lg:w-[400px]" type="submit">SignUp</button>
+          <button className="md:w-[300px] bg-orange-600 p-2 rounded-lg lg:w-[400px]" type="submit">SignUp Mama</button>
         </form>
       </div>
     </div>

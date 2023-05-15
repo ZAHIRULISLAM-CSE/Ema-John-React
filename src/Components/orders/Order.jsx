@@ -10,7 +10,7 @@ const Order = () => {
 
 
   const deleteSingleProduct = (id) => {
-    const remainDataInArray = cart.filter((p) => p.id != id);
+    const remainDataInArray = cart.filter((p) => p._id != id);
     setCart(remainDataInArray);
     const savedCart = JSON.parse(localStorage.getItem("shopping-cart"));
     if (id in savedCart) {
@@ -31,7 +31,7 @@ const clearCart=()=>{
     //get the product with id
     let storeDataInArray = [];
     for (const id in savedCart) {
-      const savedProduct = cardData.find((product) => product.id === id);
+      const savedProduct = cardData.find((product) => product._id === id);
       if (savedProduct) {
         //setting up quantity
         const quantity = savedCart[id];
@@ -66,7 +66,7 @@ const clearCart=()=>{
               </div>
               <div className="bg-red-400 p-2 rounded-full">
                 <FontAwesomeIcon
-                  onClick={() => deleteSingleProduct(singleElement.id)}
+                  onClick={() => deleteSingleProduct(singleElement._id)}
                   icon={faTrash}
                 />
               </div>
