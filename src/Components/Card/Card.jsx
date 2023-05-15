@@ -29,13 +29,31 @@ const Card = () => {
     setOrderDetails([]);
   };
 
-  useEffect(() => {
-    fetch("http://localhost:5000/products")
-      .then((res) => res.json())
-      .then((data) => setCardData(data));
-  }, []);
+//   useEffect(() => {
+//     fetch("http://localhost:5000/products")
+//       .then((res) => res.json())
+//       .then((data) => setCardData(data));
+//   }, []);
 
   //pagination works start here
+  useEffect(() => {
+    fetchData();
+  }, [currentPage, itemsPerPage]);
+
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/products?page=${currentPage}&limit=${itemsPerPage}`
+      );
+      const newData = await response.json();
+      setCardData(newData);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+
 
   useEffect(() => {
     fetch("http://localhost:5000/total")
