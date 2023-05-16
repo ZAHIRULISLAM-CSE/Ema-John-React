@@ -29,11 +29,6 @@ const Card = () => {
     setOrderDetails([]);
   };
 
-//   useEffect(() => {
-//     fetch("http://localhost:5000/products")
-//       .then((res) => res.json())
-//       .then((data) => setCardData(data));
-//   }, []);
 
   //pagination works start here
   useEffect(() => {
@@ -80,19 +75,29 @@ const Card = () => {
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("shopping-cart"));
-    //get the product with id
-    const storeDataInArray = [];
-    for (const id in savedCart) {
-      const savedProduct = cardData.find((product) => product._id === id);
-      if (savedProduct) {
-        //setting up quantity
-        const quantity = savedCart[id];
-        savedProduct.quantity = quantity;
-        storeDataInArray.push(savedProduct);
+    const ids=Object.keys(savedCart)
+    fetch('http://localhost:5000/orders',{
+        method:"POST",
+        headers:{
+            "content-type":"application/json"
+        },
+        body:JSON.stringify(ids)
+    })
+    .then(res => res.json())
+    .then(addedProduct=>{
+      const storeDataInArray = [];
+      for (const id in savedCart) {
+        const savedProduct = addedProduct.find((product) => product._id === id);
+        if (savedProduct) {
+          //setting up quantity
+          const quantity = savedCart[id];
+          savedProduct.quantity = quantity;
+          storeDataInArray.push(savedProduct);
+        }
+        setOrderDetails(storeDataInArray);
       }
-      setOrderDetails(storeDataInArray);
-    }
-  }, [cardData]);
+    });
+    })
 
   return (
     <div>
